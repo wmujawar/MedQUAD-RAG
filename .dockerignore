@@ -1,0 +1,63 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+
+# Deepeval
+.deepeval/
+
+# Guardrails
+.guardrails/
+
+# logs
+logs/
+
+# uv
+.uv/
+
+# Testing
+.tox/
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment files — NEVER include in image
+.env
+.env.*
+!.env.example
+
+# Model cache — mount as volume instead
+.cache/
+huggingface/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+*.pem
+*.key
+*.crt
+*.p12
+secrets/
+
+checkpoint*
+
+.zed/

@@ -1,0 +1,26 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+.guardrails
+.deepeval
+
+# logs
+logs/*.log
+
+# Deepeval
+.deepeval/
+
+# Guardrails
+.guardrails/
+
+checkpoint*
+
+.zed/
