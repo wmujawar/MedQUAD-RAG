@@ -5,11 +5,13 @@ from langchain_core.documents import Document
 from langchain_core.language_models import BaseChatModel
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
+from langfuse import Langfuse, get_client
 from langfuse.langchain import CallbackHandler
 from langgraph.checkpoint.sqlite import SqliteSaver
 from langgraph.graph import END, StateGraph
 from langgraph.graph.state import CompiledStateGraph
 
+from src.config import get_settings
 from src.guardrails.guardrails import GuardRailChecker, GuardResult
 from src.prompts.prompt_templates import (
     HALLUCINATION_CHECK_PROMPT,
@@ -271,6 +273,19 @@ class Pipeline:
         return graph.compile(checkpointer=checkpointer)
 
 
+settings = get_settings()
+
+Langfuse(
+    host=settings.langfuse_host,
+    public_key=settings.langfuse_public_key,
+    secret_key=settings.langfuse_secret_key.get_secret_value()
+    if settings.langfuse_secret_key is not None
+    else None,
+)
+
+langfuse = get_client()
+
+
 def fetch_answer(graph: CompiledStateGraph, question: str, thread_id: int):
     initial_state: RAGState = {
         "question": question,
@@ -295,15 +310,15 @@ def fetch_answer(graph: CompiledStateGraph, question: str, thread_id: int):
     )
 
     if response.get("input_guard_error"):
-        return "Question has gibbish text or toxic language."
+        raise Exception("Question has gibbish text or toxic language.")
 
     if not response.get("is_relevant"):
-        return "Retrieved context is not relavent."
+        raise Exception("Retrieved context is not relavent.")
 
     if response.get("output_guard_error"):
-        return "Response has toxic language."
+        raise Exception("Response has toxic language.")
 
     if not response.get("is_grounded"):
-        return "Unable to answer the question with confidence."
+        raise Exception("Unable to answer the question with confidence.")
 
     return response.get("answer")

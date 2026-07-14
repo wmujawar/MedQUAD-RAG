@@ -37,7 +37,8 @@ WORKDIR /app
 
 # Copy only the virtual environment from builder (no uv, no build tools)
 COPY --from=builder /app/.venv /app/.venv
-COPY --from=builder /app ./app
+COPY --from=builder /app/src ./app/src
+COPY --from=builder /app/scripts ./app/scripts
 
 # Create a non-root user for security
 RUN groupadd --system appgroup && \
@@ -52,4 +53,4 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=120s --retries=3 \
     CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')" || exit 1
 
-ENTRYPOINT ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
+ENTRYPOINT ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
