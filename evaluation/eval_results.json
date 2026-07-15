@@ -1,0 +1,192 @@
+[
+  {
+    "question": "What are the symptoms of Colon Cancer",
+    "expected_output": "Symptoms of colon cancer include blood in the stool (either bright red or very dark) and a persistent change in bowel habits such as diarrhea, constipation, noticeably narrower stools, or a feeling that the bowel does not empty completely. Individuals may also experience frequent abdominal discomfort like gas pains, bloating, and cramps, alongside systemic symptoms such as unexplained weight loss, extreme fatigue, and vomiting.",
+    "actual_output": "Signs of colon cancer include blood in the stool or a persistent change in bowel habits. These and other symptoms may be caused by colon cancer or by other benign medical conditions. Patients should consult a doctor if they experience: \n- A change in bowel habits, including diarrhea, constipation, or a feeling that the bowel does not empty all the way.\n- Blood (either bright red or very dark) present in the stool.\n- Stools that are narrower than usual.\n- Frequent gas pains, bloating, fullness, or abdominal cramps.\n- Weight loss for no known reason.\n- Feeling very tired or lethargic.\n- Vomiting.",
+    "success": false,
+    "metrics": [
+      {
+        "name": "Contextual Precision",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the first node provides a comprehensive list of symptoms associated with colon cancer, directly answering the question. The second node, ranked lower, discusses risk factors but does not address symptoms, making it irrelevant. Similarly, the third node focuses on definitions and does not mention symptoms, further justifying its lower rank."
+      },
+      {
+        "name": "Contextual Recall",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because all sentences in the expected output are directly supported by the information in the 1st node of the retrieval context."
+      },
+      {
+        "name": "Contextual Relevancy",
+        "score": 0.31,
+        "passed": false,
+        "reason": "The score is 0.31 because while there are relevant symptoms of colon cancer mentioned, such as 'blood in the stool' and 'persistent change in bowel habits', the majority of the retrieval context focuses on risk factors and diagnostic methods, which are not directly related to the symptoms the input is asking about."
+      },
+      {
+        "name": "Answer Relevancy",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the response directly addressed the symptoms of Colon Cancer without including any irrelevant statements."
+      },
+      {
+        "name": "Faithfulness",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because there are no contradictions, indicating that the actual output perfectly aligns with the retrieval context."
+      }
+    ]
+  },
+  {
+    "question": "What are the key differences between Thymoma and Thymic Carcinoma?",
+    "expected_output": "Both are rare malignancies forming on the outer surface of the thymus. In Thymoma, cells closely resemble normal thymus cells, grow slowly, and rarely spread beyond the thymus. It is strongly associated with autoimmune disorders like myasthenia gravis. In Thymic Carcinoma, tumor cells appear significantly abnormal, grow rapidly, and have usually metastasized to other parts of the body by the time of diagnosis, making it much more difficult to treat.",
+    "actual_output": "Thymoma and thymic carcinoma are both rare malignancies that form on the outer surface of the thymus. However, there are key clinical differences:\n\n- **Thymoma**: The malignant cells closely resemble normal thymus cells, typically grow slowly, and rarely metastasize beyond the thymus. Thymoma is strongly associated with underlying autoimmune disorders such as myasthenia gravis, acquired pure red cell aplasia, hypogammaglobulinemia, polymyositis, lupus erythematosus, rheumatoid arthritis, thyroiditis, and Sjögren syndrome.\n\n- **Thymic Carcinoma**: The specifics regarding thymic carcinoma's characteristics in relation to thymoma are not detailed in the provided context. \n\nThe context does not provide further distinctions or details about thymic carcinoma.",
+    "success": false,
+    "metrics": [
+      {
+        "name": "Contextual Precision",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the relevant nodes are ranked higher than the irrelevant node. The first node provides a clear definition of Thymoma and Thymic Carcinoma, stating that 'Thymoma and thymic carcinoma are rare malignancies in which cancer cells form on the outer surface of the thymus.' This directly addresses the key differences. The second node elaborates on the distinctions by explaining that 'Thymoma: The malignant cells closely resemble normal thymus cells. These tumors typically grow slowly and rarely metastasize beyond the thymus.' In contrast, the third node, ranked lower, focuses on diagnosis methods and does not provide relevant information about the differences, making it less useful for the expected output."
+      },
+      {
+        "name": "Contextual Recall",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because all sentences in the expected output are directly supported by the information provided in the nodes of the retrieval context."
+      },
+      {
+        "name": "Contextual Relevancy",
+        "score": 0.19,
+        "passed": false,
+        "reason": "The score is 0.19 because while there are some relevant statements about Thymoma, such as its resemblance to normal thymus cells and its association with autoimmune disorders, the majority of the context fails to address the key differences between Thymoma and Thymic Carcinoma, as highlighted by multiple statements indicating a lack of focus on these differences."
+      },
+      {
+        "name": "Answer Relevancy",
+        "score": 0.86,
+        "passed": true,
+        "reason": "The score is 0.86 because while the response addressed some aspects of thymoma and thymic carcinoma, it included irrelevant statements that did not pertain to the differences between the two, preventing a higher score."
+      },
+      {
+        "name": "Faithfulness",
+        "score": 0.83,
+        "passed": true,
+        "reason": "The score is 0.83 because the actual output incorrectly states that thymoma cells resemble normal thymus cells, which is not supported by the retrieval context."
+      }
+    ]
+  },
+  {
+    "question": "What are the standard treatments for Small Intestine Cancer?",
+    "expected_output": "Standard treatments for small intestine cancer include surgery, radiation therapy, and chemotherapy. Surgery is the most common primary treatment and can involve resection with anastomosis (removing the tumor and joining the healthy ends) or bypass surgery if the tumor cannot be removed. Radiation therapy uses high-energy x-rays to destroy cancer cells and is often used palliatively. Chemotherapy uses drugs to halt cellular division.",
+    "actual_output": "The standard treatments for Small Intestine Cancer include:\n\n1. Surgery: The most common primary treatment.\n   - Resection & Anastomosis: Surgical removal of the tumor-containing bowel segment, adjacent tissues, and regional lymph nodes, followed by joining the cut intestinal ends (anastomosis).\n   - Bypass Surgery: Performed when a tumor blocking the intestine cannot be removed, routing food around the obstruction.\n\n2. Adjuvant Therapy: Post-operative radiation given to eliminate microscopic residual disease and reduce recurrence risk.",
+    "success": false,
+    "metrics": [
+      {
+        "name": "Contextual Precision",
+        "score": 0.83,
+        "passed": true,
+        "reason": "The score is 0.83 because the relevant nodes are ranked higher than the irrelevant nodes, with the first node providing a comprehensive overview of treatments for small intestine cancer, while the second node, ranked lower, discusses general cancer treatment guidelines without specific relevance. The presence of a second relevant node further supports the score, but the overall ranking is affected by the inclusion of an irrelevant node that does not address the specific query."
+      },
+      {
+        "name": "Contextual Recall",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because all sentences in the expected output are directly supported by the information in node 1 of the retrieval context, providing a comprehensive overview of standard treatments for small intestine cancer."
+      },
+      {
+        "name": "Contextual Relevancy",
+        "score": 0.4,
+        "passed": false,
+        "reason": "The score is 0.40 because while there are relevant statements about treatments for Small Intestine Cancer, such as 'Management of small intestine cancer relies on standard therapeutic modalities' and 'Surgery: The most common primary treatment,' the majority of the retrieval context contains irrelevant information that does not directly address the question about standard treatments."
+      },
+      {
+        "name": "Answer Relevancy",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the response directly addressed the question about standard treatments for Small Intestine Cancer without any irrelevant statements."
+      },
+      {
+        "name": "Faithfulness",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because there are no contradictions, indicating that the actual output perfectly aligns with the retrieval context."
+      }
+    ]
+  },
+  {
+    "question": "How is Rectal Cancer treated and how is the disease staged?",
+    "expected_output": "Rectal cancer is staged from 0 to IV based on how deeply the tumor invades the rectal wall and whether it has spread to lymph nodes or distant organs. Stage 0 is carcinoma in situ. Stage I-III involve increasing depth of invasion and lymph node involvement without distant spread. Stage IV involves distant metastasis. Treatments include surgery (from local excision to pelvic exenteration), radiation therapy (often preoperative), chemotherapy, active surveillance, and targeted therapy (using monoclonal antibodies or angiogenesis inhibitors).",
+    "actual_output": "Rectal cancer is treated using five standard modalities, often combined based on the stage and anatomical location of the cancer. The primary treatment for all stages is surgery, which includes techniques such as:\n\n- Polypectomy or Local Excision for early surface lesions.\n- Resection of the rectum, adjacent tissues, and lymph nodes for deeper invasion.\n- Radiofrequency Ablation or Cryosurgery to destroy tissue.\n- Pelvic Exenteration for extensive multi-organ involvement.\n- Reconstructive surgery, which may involve sewing healthy bowel sections together (anastomosis) or creating a temporary or permanent abdominal opening (colostomy/stoma).\n\nThe disease is staged using imaging techniques such as chest x-rays, CT scans, MRI, PET scans, and endorectal (transrectal) ultrasound to determine how far cancer has spread. The clinical stages of rectal cancer are:\n\n- Stage 0 (Carcinoma in Situ): Abnormal cells are found only in the mucosa (innermost lining) of the rectal wall.\n- Stage I: Cancer has spread from the mucosa into the submucosa and may have spread into the muscle layer of the rectal wall, but not to lymph nodes.\n- Stage II: Subdivided into Stage IIA (spread through the muscle layer to the outer serosa), Stage IIB (spread through the serosa without invading nearby organs), and Stage IIC (spread through the serosa into nearby organs). No lymph node involvement.",
+    "success": true,
+    "metrics": [
+      {
+        "name": "Contextual Precision",
+        "score": 0.83,
+        "passed": true,
+        "reason": "The score is 0.83 because the relevant nodes are ranked higher than the irrelevant nodes, but the presence of an irrelevant node in the second position affects the overall score. The first node provides a comprehensive explanation of staging, stating that it includes 'Stage 0 (Carcinoma in Situ)' and descriptions of stages I and II, which is crucial for understanding the disease staging. However, the second node, which discusses clinical trials and treatment guidelines, does not address the treatment of rectal cancer, making it less relevant and lowering the score slightly."
+      },
+      {
+        "name": "Contextual Recall",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because every aspect of the expected output is directly supported by the information in the nodes of the retrieval context, particularly the comprehensive details on staging and treatment of rectal cancer."
+      },
+      {
+        "name": "Contextual Relevancy",
+        "score": 0.71,
+        "passed": true,
+        "reason": "The score is 0.71 because while some relevant statements about staging and treatment of rectal cancer are present, such as 'Staging uses chest x-rays, CT scans, MRI, PET scans, and endorectal (transrectal) ultrasound to find out how far cancer has spread' and 'Management of rectal cancer utilizes five standard modalities,' many statements in the retrieval context do not directly address the input question, leading to a moderate relevancy score."
+      },
+      {
+        "name": "Answer Relevancy",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the response directly addresses the treatment and staging of rectal cancer without any irrelevant statements."
+      },
+      {
+        "name": "Faithfulness",
+        "score": 0.93,
+        "passed": true,
+        "reason": "The score is 0.93 because there is a contradiction regarding lymph node involvement in Stage II, which is inaccurately stated as absent in the actual output."
+      }
+    ]
+  },
+  {
+    "question": "What are the protective factors and symptoms of Prostate cancer?",
+    "expected_output": "Protective factors for prostate cancer include adequate folate naturally present in the diet, and medications like finasteride and dutasteride which block the enzyme that changes testosterone to DHT. Symptoms of prostate cancer include weak or interrupted urine flow, sudden urge to urinate, frequent urination (especially at night), trouble starting urine flow or emptying the bladder, pain or burning while urinating, blood in urine or semen, persistent back, hip, or pelvis pain, and signs of anemia like shortness of breath and fatigue.",
+    "actual_output": "Protective Factors:\n- Folate: Adequate folate naturally present in the diet lowers risk.\n- Medications: Finasteride and dutasteride block the enzyme that changes testosterone to DHT, lowering the overall risk of prostate cancer (though they may increase the incidence of more aggressive tumors and cause side effects like erectile dysfunction).\n\nSymptoms of Prostate Cancer:\n- Weak or interrupted (\"stop-and-go\") flow of urine, or a sudden urge to urinate.\n- Frequent urination, especially at night.\n- Trouble starting the flow of urine or emptying the bladder completely.\n- Pain or burning while urinating.\n- Blood in the urine or semen.",
+    "success": false,
+    "metrics": [
+      {
+        "name": "Contextual Precision",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the first node provides relevant information on protective factors for prostate cancer, while the second and third nodes are ranked lower as they discuss colorectal cancer and biopsy procedures, respectively, which do not address the input question about prostate cancer."
+      },
+      {
+        "name": "Contextual Recall",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because all sentences in the expected output are directly supported by the information in the first node of the retrieval context, providing a clear and comprehensive understanding of protective factors and symptoms related to prostate cancer."
+      },
+      {
+        "name": "Contextual Relevancy",
+        "score": 0.53,
+        "passed": false,
+        "reason": "The score is 0.53 because while there are relevant statements about protective factors and symptoms of prostate cancer, such as 'Finasteride and dutasteride block the enzyme that changes testosterone to DHT, lowering the overall risk of prostate cancer' and 'Frequent urination, especially at night,' the majority of the context discusses colorectal cancer, making it less relevant overall."
+      },
+      {
+        "name": "Answer Relevancy",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the response directly addressed the protective factors and symptoms of prostate cancer without including any irrelevant statements."
+      },
+      {
+        "name": "Faithfulness",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because there are no contradictions, indicating that the actual output aligns perfectly with the retrieval context."
+      }
+    ]
+  }
+]

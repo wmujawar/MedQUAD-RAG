@@ -121,7 +121,7 @@ def main():
     results = evaluate(
         test_case,
         metrics,
-        async_config=AsyncConfig(max_concurrent=3, throttle_value=5),
+        async_config=AsyncConfig(max_concurrent=1, throttle_value=0),
     )
 
     # Save result to json file
@@ -137,7 +137,7 @@ def main():
                 "metrics": [
                     {
                         "name": m.name,
-                        "score": m.score,
+                        "score": round(m.score, 2),
                         "passed": m.success,
                         "reason": m.reason,
                     }

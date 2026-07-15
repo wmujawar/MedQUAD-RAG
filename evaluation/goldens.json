@@ -4,16 +4,8 @@
     "expected_output": "Symptoms of colon cancer include blood in the stool (either bright red or very dark) and a persistent change in bowel habits such as diarrhea, constipation, noticeably narrower stools, or a feeling that the bowel does not empty completely. Individuals may also experience frequent abdominal discomfort like gas pains, bloating, and cramps, alongside systemic symptoms such as unexplained weight loss, extreme fatigue, and vomiting."
   },
   {
-    "input": "How is Urethral Cancer diagnosed and what are its stages?",
-    "expected_output": "Urethral cancer is diagnosed using physical exams, pelvic and digital rectal exams, laboratory analyses (urine cytology, urinalysis, blood tests), imaging (CT scans), ureteroscopy, and definitively by biopsy. Its stages are primarily based on anatomical location: Distal Urethral Cancer (affecting the segment closest to the exterior, typically with shallower invasion) and Proximal Urethral Cancer (affecting deeper, internal segments, frequently invading adjacent tissues deeply). In men, proximal tumors may occur concurrently with bladder or prostate cancer."
-  },
-  {
     "input": "What are the key differences between Thymoma and Thymic Carcinoma?",
     "expected_output": "Both are rare malignancies forming on the outer surface of the thymus. In Thymoma, cells closely resemble normal thymus cells, grow slowly, and rarely spread beyond the thymus. It is strongly associated with autoimmune disorders like myasthenia gravis. In Thymic Carcinoma, tumor cells appear significantly abnormal, grow rapidly, and have usually metastasized to other parts of the body by the time of diagnosis, making it much more difficult to treat."
-  },
-  {
-    "input": "What are the risk factors and protective factors for Colorectal Cancer?",
-    "expected_output": "Risk factors for colorectal cancer include age (over 50), family history, personal history of high-risk adenomas or inflammatory bowel disease, inherited genetic mutations (like FAP or Lynch syndrome), alcohol consumption, cigarette smoking, and obesity. Protective factors that decrease risk include regular physical activity, aspirin use, combination hormone replacement therapy (HRT) in postmenopausal women, and the removal of polyps larger than 1 centimeter."
   },
   {
     "input": "What are the standard treatments for Small Intestine Cancer?",
