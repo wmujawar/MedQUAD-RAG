@@ -1,0 +1,30 @@
+[
+  {
+    "input": "What are the symptoms of Colon Cancer",
+    "expected_output": "Symptoms of colon cancer include blood in the stool (either bright red or very dark) and a persistent change in bowel habits such as diarrhea, constipation, noticeably narrower stools, or a feeling that the bowel does not empty completely. Individuals may also experience frequent abdominal discomfort like gas pains, bloating, and cramps, alongside systemic symptoms such as unexplained weight loss, extreme fatigue, and vomiting."
+  },
+  {
+    "input": "How is Urethral Cancer diagnosed and what are its stages?",
+    "expected_output": "Urethral cancer is diagnosed using physical exams, pelvic and digital rectal exams, laboratory analyses (urine cytology, urinalysis, blood tests), imaging (CT scans), ureteroscopy, and definitively by biopsy. Its stages are primarily based on anatomical location: Distal Urethral Cancer (affecting the segment closest to the exterior, typically with shallower invasion) and Proximal Urethral Cancer (affecting deeper, internal segments, frequently invading adjacent tissues deeply). In men, proximal tumors may occur concurrently with bladder or prostate cancer."
+  },
+  {
+    "input": "What are the key differences between Thymoma and Thymic Carcinoma?",
+    "expected_output": "Both are rare malignancies forming on the outer surface of the thymus. In Thymoma, cells closely resemble normal thymus cells, grow slowly, and rarely spread beyond the thymus. It is strongly associated with autoimmune disorders like myasthenia gravis. In Thymic Carcinoma, tumor cells appear significantly abnormal, grow rapidly, and have usually metastasized to other parts of the body by the time of diagnosis, making it much more difficult to treat."
+  },
+  {
+    "input": "What are the risk factors and protective factors for Colorectal Cancer?",
+    "expected_output": "Risk factors for colorectal cancer include age (over 50), family history, personal history of high-risk adenomas or inflammatory bowel disease, inherited genetic mutations (like FAP or Lynch syndrome), alcohol consumption, cigarette smoking, and obesity. Protective factors that decrease risk include regular physical activity, aspirin use, combination hormone replacement therapy (HRT) in postmenopausal women, and the removal of polyps larger than 1 centimeter."
+  },
+  {
+    "input": "What are the standard treatments for Small Intestine Cancer?",
+    "expected_output": "Standard treatments for small intestine cancer include surgery, radiation therapy, and chemotherapy. Surgery is the most common primary treatment and can involve resection with anastomosis (removing the tumor and joining the healthy ends) or bypass surgery if the tumor cannot be removed. Radiation therapy uses high-energy x-rays to destroy cancer cells and is often used palliatively. Chemotherapy uses drugs to halt cellular division."
+  },
+  {
+    "input": "How is Rectal Cancer treated and how is the disease staged?",
+    "expected_output": "Rectal cancer is staged from 0 to IV based on how deeply the tumor invades the rectal wall and whether it has spread to lymph nodes or distant organs. Stage 0 is carcinoma in situ. Stage I-III involve increasing depth of invasion and lymph node involvement without distant spread. Stage IV involves distant metastasis. Treatments include surgery (from local excision to pelvic exenteration), radiation therapy (often preoperative), chemotherapy, active surveillance, and targeted therapy (using monoclonal antibodies or angiogenesis inhibitors)."
+  },
+  {
+    "input": "What are the protective factors and symptoms of Prostate cancer?",
+    "expected_output": "Protective factors for prostate cancer include adequate folate naturally present in the diet, and medications like finasteride and dutasteride which block the enzyme that changes testosterone to DHT. Symptoms of prostate cancer include weak or interrupted urine flow, sudden urge to urinate, frequent urination (especially at night), trouble starting urine flow or emptying the bladder, pain or burning while urinating, blood in urine or semen, persistent back, hip, or pelvis pain, and signs of anemia like shortness of breath and fatigue."
+  }
+]
