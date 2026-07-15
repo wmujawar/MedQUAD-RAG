@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Body
+from fastapi import APIRouter, Body, status
 from fastapi.responses import JSONResponse
 
 from src.config import get_settings
@@ -8,7 +8,6 @@ from src.llm.github_llm import GithubModelProvider
 from src.llm.ollama_llm import OllamaModelProvider
 from src.rag.pipeline import Pipeline, fetch_answer
 from src.utils.container import Container
-from src.utils.logger import setup_logging
 from src.vector_store.qdrant_store import QDrantStore
 
 router = APIRouter()
@@ -22,7 +21,6 @@ llm_container.register("ollama", OllamaModelProvider, True)
 llm_container.register("github_openai", GithubModelProvider, True)
 
 
-setup_logging()
 settings = get_settings()
 
 
@@ -42,4 +40,6 @@ def get_answer(question: str = Body(..., embed=True)):
     try:
         return fetch_answer(graph, question, 1)
     except Exception as e:
-        return JSONResponse(status_code=400, content={"message": str(e)})
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST, content={"message": str(e)}
+        )
