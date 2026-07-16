@@ -219,11 +219,13 @@ services:
     container_name: medico-rag
     secrets:
       - langfuse_secret
+      - openai_api_key
     ports:
       - "8000:8000"
     env_file: .env
     environment:
       LANGFUSE_SECRET_KEY: /run/secrets/langfuse_secret
+      TOKEN: /run/secrets/openai_api_key
     depends_on:
       redis:
         condition: service_healthy
@@ -284,3 +286,5 @@ secrets:
     file: ./secrets/guardrails_key
   langfuse_secret:
     file: ./secrets/langfuse_secret_key
+  openai_api_key:
+    file: ./secrets/token

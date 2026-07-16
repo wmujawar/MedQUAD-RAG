@@ -53,8 +53,11 @@ COPY --from=builder --chown=appuser:appgroup /app/.guardrails ./.guardrails
 COPY --from=builder --chown=appuser:appgroup /app/.venv ./.venv
 COPY --from=builder --chown=appuser:appgroup /app/src ./src
 COPY --from=builder --chown=appuser:appgroup /app/scripts ./scripts
+COPY --from=builder --chown=appuser:appgroup /app/data ./data
 
 USER appuser
+
+ENV PYTHONPATH=/app
 
 EXPOSE 8000
 
