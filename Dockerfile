@@ -54,6 +54,7 @@ COPY --from=builder --chown=appuser:appgroup /app/.venv ./.venv
 COPY --from=builder --chown=appuser:appgroup /app/src ./src
 COPY --from=builder --chown=appuser:appgroup /app/scripts ./scripts
 COPY --from=builder --chown=appuser:appgroup /app/data ./data
+COPY --from=builder --chown=appuser:appgroup /app/secrets ./secrets
 
 USER appuser
 
