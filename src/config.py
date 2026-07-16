@@ -50,7 +50,7 @@ class Settings(BaseSettings):
 
     # Redis config
     redis_url: str = Field(
-        default="redis://localhost:6380",
+        default="redis://medico-redis:6379",
         description="Redis connection URL (redis://host:port)",
     )
     embedding_cache_ttl: int = Field(
@@ -66,7 +66,7 @@ class Settings(BaseSettings):
 
     # Qdrant config
     qdrant_url: str = Field(
-        default="http://localhost:6333", description="QDrant base url"
+        default="http://qdrant-store:6333", description="QDrant base url"
     )
     qdrant_key: Optional[str] = Field(default=None, description="QDrant API key")
     qdrant_collection: str = Field(
@@ -82,7 +82,7 @@ class Settings(BaseSettings):
         default=None, description="Langfuse secret key"
     )
     langfuse_host: str = Field(
-        default="http://localhost:3000",
+        default="http://langfuse:3000",
         description="Langfuse self-hosted instance URL",
     )
 
