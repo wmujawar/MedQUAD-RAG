@@ -58,14 +58,16 @@ services:
         condition: service_healthy
     ports:
       - 127.0.0.1:3030:3030
-    env_file: .env
     environment: &langfuse-worker-env
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@langfuse-db:5432/${POSTGRES_DB}
       NEXTAUTH_URL: http://localhost:3000
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      SALT: ${SALT}
       TELEMETRY_ENABLED: "false"
       CLICKHOUSE_URL: http://langfuse-clickhouse:8123
       CLICKHOUSE_MIGRATION_URL: clickhouse://langfuse-clickhouse:9000
-      CLICKHOUSE_USER: langfusech
+      CLICKHOUSE_USER: ${CLICKHOUSE_USER}
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD}
       CLICKHOUSE_CLUSTER_ENABLED: false
       REDIS_HOST: langfuse-redis
       REDIS_PORT: 6379
@@ -117,6 +119,7 @@ services:
       - "3000:3000"
     environment:
       <<: *langfuse-worker-env
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
     depends_on: *langfuse-depends-on
     restart: always
     volumes:
@@ -128,9 +131,12 @@ services:
   langfuse-db:
     image: postgres:12.19
     container_name: langfuse-db
-    env_file: .env
     ports:
       - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - langfuse_pg_data:/var/lib/postgresql/data
     healthcheck:
@@ -149,8 +155,11 @@ services:
     restart: unless-stopped
     ports:
       - "8123:8123"
-      - "9000:9000"
-    env_file: .env
+      - "9003:9000"
+    environment:
+      CLICKHOUSE_USER: ${CLICKHOUSE_USER}
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD}
+      CLICKHOUSE_DB: ${CLICKHOUSE_DB}
     volumes:
       - clickhouse_data:/var/lib/clickhouse
       - clickhouse_logs:/var/log/clickhouse-server
@@ -172,7 +181,9 @@ services:
     container_name: langfuse-minio
     restart: unless-stopped
     command: server /data --console-address ":9001"
-    env_file: .env
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     ports:
       - "9001:9001"
       - "9002:9000"
@@ -191,7 +202,6 @@ services:
     image: redis:7-alpine
     container_name: langfuse-redis
     restart: unless-stopped
-    env_file: .env
     command: >
       --requirepass ${REDIS_AUTH}
       --maxmemory-policy noeviction
@@ -199,7 +209,6 @@ services:
       - "6379:6379"
     volumes:
       - langfuse_redis_data:/data
-
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
@@ -222,10 +231,31 @@ services:
       - openai_api_key
     ports:
       - "8000:8000"
-    env_file: .env
     environment:
+      LANGFUSE_HOST: ${LANGFUSE_HOST}
       LANGFUSE_SECRET_KEY: /run/secrets/langfuse_secret
+      LANGFUSE_PUBLIC_KEY: ${LANGFUSE_PUBLIC_KEY}
       TOKEN: /run/secrets/openai_api_key
+      APP_ENV: ${APP_ENV}
+      EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER}
+      GENERATION_PROVIDER: ${GENERATION_PROVIDER}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL}
+      GENERATOR_MODEL: ${GENERATOR_MODEL}
+      LLM_PROVIDER_BASE_URL: ${LLM_PROVIDER_BASE_URL}
+      EMBEDDING_DIM: ${EMBEDDING_DIM}
+      LOG_LEVEL: ${LOG_LEVEL}
+      EMBEDDING_CACHE_TTL: ${EMBEDDING_CACHE_TTL}
+      VECTOR_STORE_PROVIDER: ${VECTOR_STORE_PROVIDER}
+      QDRANT_URL: ${QDRANT_URL}
+      QDRANT_KEY: ${QDRANT_KEY}
+      QDRANT_COLLECTION: ${QDRANT_COLLECTION}
+      CHUNK_SIZE: ${CHUNK_SIZE}
+      CHUNK_OVERLAP: ${CHUNK_OVERLAP}
+      TOP_K: ${TOP_K}
+      MAX_RETRIEVAL_ITERATIONS: ${MAX_RETRIEVAL_ITERATIONS}
+      RELEVANCY_THRESHOLD: ${RELEVANCY_THRESHOLD}
+      REDIS_URL: ${REDIS_URL}
+      
     depends_on:
       redis:
         condition: service_healthy
