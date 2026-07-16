@@ -23,6 +23,14 @@ COPY . .
 # Install the project itself
 RUN uv sync --frozen --no-dev
 
+# Set python path
+RUN --mount=type=secret,id=guardrails_key \
+    export GUARDRAILS_NO_PROMPT=true && \
+    export GUARDRAILS_API_KEY=$(cat /run/secrets/guardrails_key) && \
+    yes "n" | uv run guardrails configure --token $GUARDRAILS_API_KEY && \
+    yes "y" | uv run guardrails hub install hub://guardrails/detect_pii --quiet && \
+    yes "y" | uv run guardrails hub install hub://guardrails/gibberish_text --quiet && \
+    yes "y" | uv run guardrails hub install hub://guardrails/toxic_language --quiet
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Stage 2 — Runtime
@@ -35,21 +43,22 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-# Copy only the virtual environment from builder (no uv, no build tools)
-COPY --from=builder /app/.venv /app/.venv
-COPY --from=builder /app/src ./app/src
-COPY --from=builder /app/scripts ./app/scripts
-
 # Create a non-root user for security
 RUN groupadd --system appgroup && \
-    useradd --system --gid appgroup --no-create-home appuser && \
+    useradd --system --gid appgroup --create-home appuser && \
     chown -R appuser:appgroup /app
+
+# Copy only the virtual environment from builder (no uv, no build tools)
+COPY --from=builder --chown=appuser:appgroup /app/.guardrails ./.guardrails
+COPY --from=builder --chown=appuser:appgroup /app/.venv ./.venv
+COPY --from=builder --chown=appuser:appgroup /app/src ./src
+COPY --from=builder --chown=appuser:appgroup /app/scripts ./scripts
 
 USER appuser
 
 EXPOSE 8000
 
-# Health check (uses curl — ensure it is available or use wget)
+# Health check using built-in Python to avoid installing curl/wget
 HEALTHCHECK --interval=30s --timeout=10s --start-period=120s --retries=3 \
     CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')" || exit 1
 

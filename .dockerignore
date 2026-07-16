@@ -57,6 +57,7 @@ Thumbs.db
 *.crt
 *.p12
 secrets/
+!secrets/.gitignore
 
 checkpoint*
 

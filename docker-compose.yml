@@ -1,39 +1,4 @@
 services:
-  # ── RAG API ─────────────────────────────────────────────────────────────────
-  rag-api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: medico-rag:latest
-    container_name: medico-rag
-    ports:
-      - "8000:8000"
-    env_file: .env
-    depends_on:
-      redis:
-        condition: service_healthy
-      qdrant:
-        condition: service_started
-      langfuse:
-        condition: service_started
-      # healthcheck:
-      #   test:
-      #     [
-      #       "CMD",
-      #       "python",
-      #       "-c",
-      #       "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')",
-      # ]
-      # interval: 30s
-      # timeout: 10s
-      # start_period: 120s
-      # retries: 3
-    restart: unless-stopped
-    volumes:
-      - hf_cache:/root/.cache/huggingface
-    networks:
-      - rag-net
-
   # ── Redis ────────────────────────────────────────────────────────────────────
   redis:
     image: redis:7-alpine
@@ -65,7 +30,7 @@ services:
       - "6333:6333"
       - "6334:6334"
     volumes:
-      - qdrant_data:/qdrant/storage
+      - qdrant_data1:/qdrant/storage
     environment:
       QDRANT__SERVICE__GRPC_PORT: 6334
     healthcheck:
@@ -243,6 +208,46 @@ services:
     networks:
       - rag-net
 
+  # ── RAG API ─────────────────────────────────────────────────────────────────
+  rag-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      secrets:
+        - guardrails_key
+    image: medico-rag:latest
+    container_name: medico-rag
+    secrets:
+      - langfuse_secret
+    ports:
+      - "8000:8000"
+    env_file: .env
+    environment:
+      LANGFUSE_SECRET_KEY: /run/secrets/langfuse_secret
+    depends_on:
+      redis:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+      langfuse:
+        condition: service_started
+      # healthcheck:
+      #   test:
+      #     [
+      #       "CMD",
+      #       "python",
+      #       "-c",
+      #       "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')",
+      # ]
+      # interval: 30s
+      # timeout: 10s
+      # start_period: 120s
+      # retries: 3
+    restart: unless-stopped
+    volumes:
+      - hf_cache:/root/.cache/huggingface
+    networks:
+      - rag-net
   # ── Nginx reverse proxy (optional) ────────────────────────────────────────
   nginx:
     image: nginx:1.27-alpine
@@ -260,7 +265,7 @@ services:
 # ── Volumes ──────────────────────────────────────────────────────────────────
 volumes:
   redis_data:
-  qdrant_data:
+  qdrant_data1:
   langfuse_pg_data:
   hf_cache:
   clickhouse_data:
@@ -273,3 +278,9 @@ volumes:
 networks:
   rag-net:
     driver: bridge
+
+secrets:
+  guardrails_key:
+    file: ./secrets/guardrails_key
+  langfuse_secret:
+    file: ./secrets/langfuse_secret_key

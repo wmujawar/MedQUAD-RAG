@@ -111,6 +111,11 @@ class Settings(BaseSettings):
         le=1,
     )
 
+    # Guardrails AI
+    guardrails_api_key: Optional[str] = Field(
+        default=None, description="Guardrails AI api key"
+    )
+
 
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:
