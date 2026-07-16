@@ -30,7 +30,7 @@ services:
       - "6333:6333"
       - "6334:6334"
     volumes:
-      - qdrant_data1:/qdrant/storage
+      - qdrant_data:/qdrant/storage
     environment:
       QDRANT__SERVICE__GRPC_PORT: 6334
     healthcheck:
@@ -265,7 +265,7 @@ services:
 # ── Volumes ──────────────────────────────────────────────────────────────────
 volumes:
   redis_data:
-  qdrant_data1:
+  qdrant_data:
   langfuse_pg_data:
   hf_cache:
   clickhouse_data:
