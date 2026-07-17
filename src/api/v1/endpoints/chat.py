@@ -1,5 +1,7 @@
+import structlog
 from fastapi import APIRouter, Body, status
 from fastapi.responses import JSONResponse
+from openai import APIStatusError
 
 from src.config import get_settings
 from src.embeddings.github_embedder import GitHubEmbedder
@@ -20,6 +22,7 @@ llm_container = Container()
 llm_container.register("ollama", OllamaModelProvider, True)
 llm_container.register("github_openai", GithubModelProvider, True)
 
+logger = structlog.get_logger(__file__)
 
 settings = get_settings()
 
@@ -33,7 +36,15 @@ def get_answer(question: str = Body(..., embed=True)):
     embedder.initialize_embedding_model()
 
     qdrant_store = QDrantStore(embedding_model=embedder.model)
-    qdrant_store.get_vector_store()
+
+    try:
+        qdrant_store.get_vector_store()
+    except APIStatusError as e:
+        logger.exception("openai.api_key.invalid", error=str(e))
+        return JSONResponse(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            content={"message": "Invalid LLM Provider API key"},
+        )
 
     graph = Pipeline(vector_store=qdrant_store, llm=model).build_graph()
 
