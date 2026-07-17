@@ -231,18 +231,18 @@ services:
         condition: service_started
       langfuse:
         condition: service_started
-      # healthcheck:
-      #   test:
-      #     [
-      #       "CMD",
-      #       "python",
-      #       "-c",
-      #       "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')",
-      # ]
-      # interval: 30s
-      # timeout: 10s
-      # start_period: 120s
-      # retries: 3
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health')",
+        ]
+      interval: 30s
+      timeout: 10s
+      start_period: 120s
+      retries: 3
     restart: unless-stopped
     volumes:
       - hf_cache:/root/.cache/huggingface
