@@ -23,14 +23,6 @@ COPY . .
 # Install the project itself
 RUN uv sync --frozen --no-dev
 
-# Set python path
-RUN --mount=type=secret,id=guardrails_key \
-    export GUARDRAILS_NO_PROMPT=true && \
-    export GUARDRAILS_API_KEY=$(cat /run/secrets/guardrails_key) && \
-    yes "n" | uv run guardrails configure --token $GUARDRAILS_API_KEY && \
-    yes "y" | uv run guardrails hub install hub://guardrails/detect_pii --quiet && \
-    yes "y" | uv run guardrails hub install hub://guardrails/gibberish_text --quiet && \
-    yes "y" | uv run guardrails hub install hub://guardrails/toxic_language --quiet
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Stage 2 — Runtime
@@ -49,7 +41,6 @@ RUN groupadd --system appgroup && \
     chown -R appuser:appgroup /app
 
 # Copy only the virtual environment from builder (no uv, no build tools)
-COPY --from=builder --chown=appuser:appgroup /app/.guardrails ./.guardrails
 COPY --from=builder --chown=appuser:appgroup /app/.venv ./.venv
 COPY --from=builder --chown=appuser:appgroup /app/src ./src
 COPY --from=builder --chown=appuser:appgroup /app/scripts ./scripts
@@ -59,6 +50,17 @@ COPY --from=builder --chown=appuser:appgroup /app/secrets ./secrets
 USER appuser
 
 ENV PYTHONPATH=/app
+
+# Set python path
+RUN --mount=type=secret,id=guardrails_key,mode=0444 \
+    export GUARDRAILS_NO_PROMPT=true && \
+    export GUARDRAILS_API_KEY=$(cat /run/secrets/guardrails_key) && \
+    yes "n" | guardrails configure --token $GUARDRAILS_API_KEY && \
+    yes "y" | guardrails hub install hub://guardrails/detect_pii --quiet && \
+    yes "y" | guardrails hub install hub://guardrails/gibberish_text --quiet && \
+    yes "y" | guardrails hub install hub://guardrails/toxic_language --quiet
+
+# RUN python -m nltk.downloader punkt_tab
 
 EXPOSE 8000
 
