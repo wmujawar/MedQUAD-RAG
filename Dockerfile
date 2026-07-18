@@ -60,8 +60,6 @@ RUN --mount=type=secret,id=guardrails_key,mode=0444 \
     yes "y" | guardrails hub install hub://guardrails/gibberish_text --quiet && \
     yes "y" | guardrails hub install hub://guardrails/toxic_language --quiet
 
-# RUN python -m nltk.downloader punkt_tab
-
 EXPOSE 8000
 
 # Health check using built-in Python to avoid installing curl/wget
